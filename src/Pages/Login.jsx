@@ -1,6 +1,47 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../Utils/firebase";
+
+
 
   function Login() {
+
+    const[email, setEmail]= useState('')
+    const[password, setPassword]= useState('')
+
+    const handleSignInWithGoogle = ()=>{
+      const provider = new GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+      signInWithPopup(auth, provider)
+  .then((result) => {
+    console.log("result ===>", result);
+    
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    console.log("User ==>", user);
+    
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    console.log("Error==>", errorMessage);
+    
+    // ...
+  });
+
+    }
+
+
     return (
       <>
         
@@ -26,6 +67,8 @@ import { Link } from "react-router-dom";
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onClick={(e)=> setEmail(e.target.value)}
                     required
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -44,6 +87,8 @@ import { Link } from "react-router-dom";
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onClick={(e)=> setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -53,9 +98,17 @@ import { Link } from "react-router-dom";
   
               <div>
                 <button
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
                 >
                   Sign in
+                </button>
+              </div>
+              <h1 className="text-center my-8 text-white">or</h1>
+              <div>
+                <button
+                  onClick={handleSignInWithGoogle} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize"
+                >
+                  Sign in with google
                 </button>
               </div>
   

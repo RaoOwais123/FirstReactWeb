@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../Context/ThemeContext";
 import Button from "./Button";
+import { AuthContext } from "../Context/AuthContext";
+import { Avatar, User } from "@nextui-org/react";
+import { h1 } from "framer-motion/client";
 
 function Header(){
     // const navigate = useNavigate();
@@ -10,9 +13,12 @@ function Header(){
     //     navigate("/ContactUs");
 
     // };
+    const{user, setUser} = useContext(AuthContext);
     const {theme, setTheme} = useContext(ThemeContext);
+    console.log(user);
 
     return(
+
 
       
 
@@ -37,12 +43,25 @@ function Header(){
           </span>
         </a>
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-        <Link to="/Login" className="mr-5 hover:text-gray-900">
+          {
+            user?.isLogin ?
+            <h1>{user?.userInfo?.name}</h1>
+            :
+            <Link to="/Login" className="mr-5 hover:text-gray-900">
          Login
           </Link>
-          <Link to="/SignUp" className="mr-5 hover:text-gray-900">
+          }
+        
+          {
+            user?.isLogin ?
+            <Avatar src={user?.userInfo?.photoURL}
+            size="md"/>
+            :
+            <Link to="/SignUp" className="mr-5 hover:text-gray-900">
          SignUp
           </Link>
+          }
+          
           <Link to="/AboutUs" className="mr-5 hover:text-gray-900">
           About Us
           </Link>

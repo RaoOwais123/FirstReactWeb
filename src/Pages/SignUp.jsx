@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function SignUp() {
+
+    const[email, setEmail]= useState('');
+    const[password, setPassword]= useState('');
+    const[username, setUserName]= useState('');
+  
     return (
       <>
         
@@ -18,37 +24,23 @@ function SignUp() {
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
             <div>
-                <label htmlFor="name" className="block text-sm font-medium leading-6 text-white">
+                <label htmlFor="username" className="block text-sm font-medium leading-6 text-white">
                   Full Name
                 </label>
                 <div className="mt-2">
                   <input
-                    id="name"
-                    name="name"
+                    id="username"
+                    name="username"
                     type="text"
+                    value={username}
+                    onClick={(e)=> setUserName(e.target.value)}
                     required
-                    autoComplete="name"
+                    autoComplete="username"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
-              <div>
-                <label htmlFor="number" className="block text-sm font-medium leading-6 text-white">
-                 Contact Number
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="number"
-                    name="number"
-                    type="number"
-                    required
-                    autoComplete="number"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-
-
+      
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
                   Email address
@@ -58,6 +50,8 @@ function SignUp() {
                     id="email"
                     name="email"
                     type="email"
+                    value={email}
+                    onClick={(e)=> setEmail(e.target.value)}
                     required
                     autoComplete="email"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -76,6 +70,8 @@ function SignUp() {
                     id="password"
                     name="password"
                     type="password"
+                    value={password}
+                    onClick={(e)=> setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 text-center shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
