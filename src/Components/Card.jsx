@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Card({ info }) {
   return (
-    <Link  className="lg:w-1/4 md:w-1/2 p-4 w-full shadow" to={`/Products/${info.id}`} >
+    <Link  className="lg:w-64 md:w-1/2 p-2 mt-20 w-full shadow-red-700 shadow" to={`/Products/${info.id}`} >
       <div>
         <a className="block relative h-48 rounded overflow-hidden">
           <img

@@ -1,8 +1,9 @@
 import { data } from "autoprefixer";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import Card from "../Components/Card";
 import Chip from "../Components/Chip";
+import { ThemeContext } from "../Context/ThemeContext";
 
 
 
@@ -12,6 +13,7 @@ const[products, setProducts] = useState([]);
 const[category, setCategory] = useState([]);
 const[loading, setLoading] = useState(true);
 const[chosenCategory, setChosenCategory] = useState("All")
+const {theme, setTheme} = useContext(ThemeContext);
 
 
 useEffect(()=>{
@@ -55,7 +57,7 @@ return (
          
         </div>
 
-        <div className="flex flex-wrap">
+        <div className={`flex flex-wrap justify-around ${theme === "light" ? "bg-purple-400" : "bg-gray-600"}`}>
           {products.map((data) => (
             <Card info={data} key={data.id} />
           ))}

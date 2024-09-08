@@ -8,12 +8,14 @@ import App from "./App";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Products from "./Pages/Products";
+import ThemeContextProvider from "./Context/ThemeContext";
 
 
 
 function AppRouters(){
     return(
         <>
+        <ThemeContextProvider>
         <BrowserRouter>
         <Header/>
         <Routes>
@@ -27,6 +29,8 @@ function AppRouters(){
             <Route path="*" element={<NotFound/>} />
         </Routes>
         </BrowserRouter>
+        </ThemeContextProvider>
+        
       
         </>
     )

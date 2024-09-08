@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../Context/ThemeContext";
+import Button from "./Button";
 
 function Header(){
     // const navigate = useNavigate();
@@ -7,8 +10,14 @@ function Header(){
     //     navigate("/ContactUs");
 
     // };
+    const {theme, setTheme} = useContext(ThemeContext);
+
     return(
-      <header className="text-gray-600 body-font border-b-4 border-blue-500 ">
+
+      
+
+      <header className={`${theme == "light" ? "bg-white text-gray-600" : "bg-gray-600 text-white"} body-font border-b-4 border-blue-500` }>
+        
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
           <svg
@@ -58,6 +67,14 @@ function Header(){
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </button>
+        <Button onPress={()=>{
+          if (theme === "light") {
+            setTheme("dark");
+          }
+          else{
+            setTheme("light");
+          }
+        }} label={theme === "light" ? "Make it Drak" : "Make it light"}/>
       </div>
     </header>
       
