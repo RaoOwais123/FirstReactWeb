@@ -5,6 +5,8 @@ import Button from "./Button";
 import { AuthContext } from "../Context/AuthContext";
 import { Avatar, User } from "@nextui-org/react";
 import { h1 } from "framer-motion/client";
+import { signOut } from "firebase/auth";
+import { auth } from "../Utils/firebase";
 
 function Header(){
     // const navigate = useNavigate();
@@ -16,6 +18,10 @@ function Header(){
     const{user, setUser} = useContext(AuthContext);
     const {theme, setTheme} = useContext(ThemeContext);
     console.log(user);
+
+    const handleUserLogout = async ()=>{
+       await signOut(auth);
+    }
 
     return(
 
@@ -54,7 +60,7 @@ function Header(){
         
           {
             user?.isLogin ?
-            <Avatar src={user?.userInfo?.photoURL}
+            <Avatar src={user?.userInfo?.photoUrl}
             size="md"/>
             :
             <Link to="/SignUp" className="mr-5 hover:text-gray-900">
@@ -72,20 +78,15 @@ function Header(){
           Products
           </Link>
         </nav>
-        <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-          Logout
-          <svg
-            className="w-4 h-4 ml-1"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
+        {
+          user.isLogin ?(
+            <Button  label={"Logout"} onclick={handleUserLogout} />
+
+          ):(
+            <div></div>
+          )
+        }
+       
         <Button onPress={()=>{
           if (theme === "light") {
             setTheme("dark");
