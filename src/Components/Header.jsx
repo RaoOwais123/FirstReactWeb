@@ -48,25 +48,7 @@ function Header(){
             Tailblocks
           </span>
         </a>
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          {
-            user?.isLogin ?
-            <h1>{user?.userInfo?.name}</h1>
-            :
-            <Link to="/Login" className="mr-5 hover:text-gray-900">
-         Login
-          </Link>
-          }
-        
-          {
-            user?.isLogin ?
-            <Avatar src={user?.userInfo?.photoUrl}
-            size="md"/>
-            :
-            <Link to="/SignUp" className="mr-5 hover:text-gray-900">
-         SignUp
-          </Link>
-          }
+        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center ">
           
           <Link to="/AboutUs" className="mr-5 hover:text-gray-900">
           About Us
@@ -77,8 +59,26 @@ function Header(){
           <Link to="/Products" className="mr-5 hover:text-gray-900">
           Products
           </Link>
-        </nav>
-        {
+          {
+            user?.isLogin ?
+            <h1 className="mr-5">{user?.userInfo?.name}</h1>
+            :
+            <Link to="/Login" className="mr-5 hover:text-gray-900">
+         Login
+          </Link>
+          }
+        
+          {
+            user?.isLogin ?
+            <Avatar className="mr-5" src={user?.userInfo?.photoUrl}
+            size="md"/>
+            :
+            <Link to="/SignUp" className="mr-5 hover:text-gray-900">
+         SignUp
+          </Link>
+          }
+
+{
           user.isLogin ?(
             <Button  label={"Logout"} onclick={handleUserLogout} />
 
@@ -87,14 +87,16 @@ function Header(){
           )
         }
        
-        <Button onPress={()=>{
+        <Button  onPress={()=>{
           if (theme === "light") {
             setTheme("dark");
           }
           else{
             setTheme("light");
           }
-        }} label={theme === "light" ? "Make it Drak" : "Make it light"}/>
+        }} label={theme === "light" ? "Make it Drak" : "Make it light"} />
+        </nav>
+        
       </div>
     </header>
       
